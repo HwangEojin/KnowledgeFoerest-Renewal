@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="StudyMapper">
+
+<!-- 게시판 조회 (검색포함) -->
+    <select id="selectStudySearch" resultType="StudyUserDTO">
+        SELECT *
+			FROM (
+				SELECT ROWNUM AS rnum, studyList.*
+			    FROM (
+			    	SELECT 
+				        ts.STUDY_NUM, 
+				        tu.USER_NUM, 
+				        ts.STUDY_TITLE, 
+				        ts.STUDY_DESCRIPT, 
+				        ts.STUDY_LOCATION, 
+				        ts.STUDY_START_DAY, 
+				        ts.STUDY_END_DAY,
+						ts.STUDY_START_TIME, 
+						ts.STUDY_END_TIME, 
+						ts.STUDY_LIMIT, 
+						ts.STUDY_DEADLINE, 
+						ts.STUDY_SHOWPH,
+						ts.STUDY_CATEGORY, 
+						ts.STUDY_UPLOAD_DATE, 
+						ts.STUDY_EDIT_DATE, 
+						tu.USER_ID, 
+						tu.USER_NICK, 
+						tu.USER_PH,
+						(SELECT COUNT(*) FROM TBL_STUDY_APPLY tsa WHERE tsa.STUDY_NUM = ts.STUDY_NUM) AS participants
+					FROM TBL_STUDY ts
+					INNER JOIN TBL_USER tu
+					ON ts.USER_NUM = tu.USER_NUM
+					<if test = "keyword != null and keyword != ''">
+						WHERE ts.STUDY_TITLE LIKE '%' || #{keyword} || '%'
+					</if>
+					ORDER BY STUDY_NUM DESC
+			    ) studyList
+			    WHERE ROWNUM <![CDATA[<=]]> #{endRow}
+		)
+		WHERE rnum >= #{startRow}
+    </select>
+    
+    <!-- 총 스터디 수 -->
+	<select id="getStudyTotal" resultType="int">
+        SELECT COUNT(STUDY_NUM) 
+        FROM TBL_STUDY
+		<if test = "keyword != null and keyword != ''">
+			WHERE STUDY_TITLE LIKE '%' || #{keyword} || '%'
+		</if>
+	</select>    
+	
+	<!-- 스터디 게시글 추가 -->
+	<insert id="insert" parameterType="StudyDTO">
+		INSERT INTO TBL_STUDY (
+		STUDY_NUM
+		, USER_NUM
+		, STUDY_TITLE
+		, STUDY_DESCRIPT
+		, STUDY_LOCATION
+		, STUDY_START_DAY
+		, STUDY_END_DAY
+		, STUDY_START_TIME
+		, STUDY_END_TIME
+		, STUDY_LIMIT
+		, STUDY_DEADLINE
+		, STUDY_SHOWPH
+		, STUDY_CATEGORY
+		, STUDY_UPLOAD_DATE
+		, STUDY_EDIT_DATE) 
+		VALUES (
+		SEQ_STUDY.NEXTVAL
+		, #{userNum}
+		, #{studyTitle}
+		, #{studyDescript}
+		, #{studyLocation}
+		, TO_DATE(#{studyStartDay}, 'YYYY-MM-DD HH24:MI:SS')
+		, TO_DATE(#{studyEndDay}, 'YYYY-MM-DD HH24:MI:SS')
+		, #{studyStartTime}
+		, #{studyEndTime}
+		, #{studyLimit}
+		, #{studyDeadline}
+		, #{studyShowph}
+		, #{studyCategory}
+		, SYSDATE
+		, SYSDATE
+		)
+	</insert>
+	
+	<!-- 스터디 게시글에 이미지 추가 -->
+	<insert id="insertImg" parameterType="UserImgDTO">
+		INSERT INTO NOTE.TBL_USER_IMG
+		(USER_IMG_NUM, STUDY_NUM, USER_IMG_NAME, USER_IMG_UUID)
+		VALUES(SEQ_USER_IMG.NEXTVAL, #{studyNum}, #{userImgName}, #{userImgUuid})
+	</insert>
+	
+	<!-- 마지막 생성된 시퀀스 값을 가져오는 쿼리 -->
+	<select id="getCurrentStudyNumber" resultType="int">
+		SELECT
+		seq_study.CURRVAL FROM DUAL
+	</select>
+	
+	<!-- 상세 페이지 -->
+	<select id="selectDetail" resultType="StudyUserDTO" parameterType="int">
+		SELECT 
+			ts.STUDY_NUM
+			, ts.USER_NUM 
+			, ts.STUDY_TITLE 
+			, tu.USER_NICK 
+			, ts.STUDY_UPLOAD_DATE 
+			, ts.STUDY_LIMIT 
+			, ts.STUDY_DEADLINE 
+			, ts.STUDY_START_TIME 
+			, ts.STUDY_END_TIME 
+			, ts.STUDY_START_DAY 
+			, ts.STUDY_END_DAY 
+			, tu.USER_PH 
+			, ts.STUDY_LOCATION 
+			, ts.STUDY_DESCRIPT 
+			, (SELECT COUNT(*) FROM TBL_STUDY_APPLY tsa WHERE tsa.STUDY_NUM = ts.STUDY_NUM) AS participants
+		FROM TBL_STUDY ts 
+		JOIN TBL_USER tu 
+		ON ts.USER_NUM = tu.USER_NUM
+		WHERE ts.STUDY_NUM = #{studyNum}
+	</select>
+	
+	<!-- 수정 페이지 -->
+	<update id="editStudy" parameterType="StudyDTO">
+		UPDATE TBL_STUDY
+		SET 
+		STUDY_TITLE = #{studyTitle}
+		, STUDY_DESCRIPT = #{studyDescript}
+		, STUDY_LOCATION = #{studyLocation}
+		, STUDY_START_DAY = TO_DATE(#{studyStartDay}, 'YYYY-MM-DD HH24:MI:SS')
+		, STUDY_END_DAY = TO_DATE(#{studyEndDay}, 'YYYY-MM-DD HH24:MI:SS')
+		, STUDY_START_TIME = #{studyStartTime}
+		, STUDY_END_TIME = #{studyEndTime}
+		, STUDY_LIMIT = #{studyLimit}
+		, STUDY_DEADLINE = TO_DATE(#{studyDeadline}, 'YYYY-MM-DD HH24:MI:SS')
+		, STUDY_SHOWPH = #{studyShowph}
+		, STUDY_CATEGORY = #{studyCategory}
+		, STUDY_EDIT_DATE = SYSDATE
+		WHERE STUDY_NUM = #{studyNum}
+<!-- 		UPDATE TBL_STUDY
+		SET 
+		STUDY_TITLE = #{studyTitle}
+		, STUDY_DESCRIPT = #{studyDescript}
+		, STUDY_LOCATION = #{studyLocation}
+		, STUDY_START_DAY = TO_DATE(#{studyStartDay}, 'YYYY-MM-DD HH24:MI:SS')
+		, STUDY_END_DAY = TO_DATE(#{studyEndDay}, 'YYYY-MM-DD HH24:MI:SS')
+		, STUDY_START_TIME = #{studyStartTime}
+		, STUDY_END_TIME = #{studyEndTime}
+		, STUDY_LIMIT = #{studyLimit}
+		, STUDY_DEADLINE = TO_DATE(#{studyDeadline}, 'YYYY-MM-DD HH24:MI:SS')
+		, STUDY_SHOWPH = #{studyShowph}
+		, STUDY_CATEGORY = #{studyCategory}
+		, STUDY_UPLOAD_DATE = SYSDATE
+		, STUDY_EDIT_DATE = SYSDATE
+		WHERE STUDY_NUM = 1 AND USER_NUM = 13; -->
+	</update>
+	
+	<!-- 게시판 삭제 -->
+	<delete id="deleteStudy" parameterType="int">
+		DELETE FROM TBL_STUDY ts 
+		WHERE STUDY_NUM = #{studyNum}
+	</delete>	
+	
+	<insert id="insertStudyApply" parameterType="StudyApplyUserDTO">
+		INSERT INTO TBL_STUDY_APPLY tsa(
+			STUDY_APPLY_NUM 
+			, STUDY_NUM 
+			, USER_NUM 
+			, USER_DETERMINATION 
+		) values (
+			SEQ_STUDY_APPLY.NEXTVAL
+			, #{studyNum}
+			, #{userNum}
+			, #{userDetermination}
+			)
+	</insert>
+	
+</mapper>

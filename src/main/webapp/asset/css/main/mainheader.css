@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+
+/* ✅ 북마크 메뉴 스타일 */
+.menu-wrapper {
+  align-self: baseline;
+}
+
+.main-nav-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 50px;
+}
+
+.li-menu {
+  width: 150px;
+  height: 40px;
+  background: #f0f0f0;
+  margin: 5px 0;
+  border-radius: 0px 5px 5px 0px;
+  box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.3s;
+  text-align: right;
+  transform: translateX(-100px);
+  z-index: 0;
+  display: flex;
+  align-items: center;
+}
+
+.li-menu a {
+  text-decoration: none;
+  color: #321500;
+  font-weight: bold;
+  font-family: 'Chosunilbo_myungjo', serif;
+  display: block;
+  margin-left: auto;
+}
+
+.div-postit {
+  width: 40px;
+  height: 100%;
+  background-color: #D9A87E;
+  margin-left: 20px;
+  
+}
+
+
+
+/* div-postit의 첫번째 요소 */
+
+.li-menu:nth-child(1) .div-postit {
+  background-color: #D9C7B8;
+}
+/* div-postit의 두번째 요소 */
+
+.li-menu:nth-child(2) .div-postit{
+  background-color: #BFA084;
+  
+}
+/* div-postit의 첫번째 요소 */
+
+.li-menu:nth-child(3) .div-postit{
+  background-color: #A6775B;
+}
+/* div-postit의 첫번째 요소 */
+
+.li-menu:nth-child(4) .div-postit{
+  background-color: #733F2D;
+}
+/* div-postit의 첫번째 요소 */
+
+.li-menu:nth-child(5) .div-postit{
+  background-color: #401818;
+}
+
+
+
+/* 마우스 오버 시 살짝 튀어나오게 */
+.li-menu:hover {
+  transform: translateX(0px);
+}
+
+/* 📌 책이 펼쳐졌을 때 메뉴 이름 표시 */
+.main-nav-menuwrap.open .li-menu a {
+  opacity: 1;
+  /* 메뉴 이름 표시 */
+}

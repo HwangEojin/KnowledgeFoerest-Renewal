@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 카멜 케이스 매핑 설정 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		
+		<!-- 쿼리 결과 필드가 null인 경우 누락되지 않도록 설정 -->
+		<setting name="callSettersOnNulls" value="true" />
+		
+		<!-- 쿼리에 보내는 파라미터가 null인 경우 오류가 발생하는 것을 방지 설정 -->
+		<setting name="jdbcTypeForNull" value="NULL" />	
+	</settings>
+	
+	<!-- DTO 별칭 설정 -->
+	<typeAliases>
+		<typeAlias type="com.knowledgeForest.dto.UserDTO" alias="UserDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.BoardDTO" alias="BoardDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.StudyDTO" alias="StudyDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.NoticeDTO" alias="NoticeDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.BannerDTO" alias="BannerDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.StudyUserDTO" alias="StudyUserDTO" />
+		<typeAlias type="com.knowledgeForest.dto.StudyApplyUserDTO" alias="StudyApplyUserDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.BoardUserDTO" alias="BoardUserDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.StudyApplyDTO" alias="StudyApplyDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.AdminImgDTO" alias="AdminImgDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.NoticeImgDTO" alias="NoticeImgDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.BannerImgDTO" alias="BannerImgDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.UserImgDTO" alias="UserImgDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.BoardImgDTO" alias="BoardImgDTO" />		
+		<typeAlias type="com.knowledgeForest.dto.StudyImgDTO" alias="StudyImgDTO" />		
+	</typeAliases>
+
+	<environments default="oracle">
+		<environment id="oracle">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521/xe" />
+				<property name="username" value="note" />
+				<property name="password" value="1027" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="com/knowledgeForest/mapper/AdminMapper.xml" />
+		<mapper resource="com/knowledgeForest/mapper/LoginMapper.xml" />
+		<mapper resource="com/knowledgeForest/mapper/UserMapper.xml" />
+		<mapper resource="com/knowledgeForest/mapper/BannerMapper.xml" />
+		<mapper resource="com/knowledgeForest/mapper/BoardMapper.xml" />
+		<mapper resource="com/knowledgeForest/mapper/NoticeMapper.xml" />
+		<mapper resource="com/knowledgeForest/mapper/StudyMapper.xml" />
+		<mapper resource="com/knowledgeForest/mapper/MainMapper.xml" />
+		<mapper resource="com/knowledgeForest/mapper/AdminImgMapper.xml" />
+	</mappers>
+	
+</configuration>
+
+
