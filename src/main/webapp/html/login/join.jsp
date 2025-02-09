@@ -1,132 +1,151 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>지식의 숲</title>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/asset/css/login/join.css"> <!-- css링크걸기 -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/asset/css/main/header.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/asset/css/main/footer.css">
-  <script defer src="${pageContext.request.contextPath}/asset/js/login/join.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지식의 숲</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/asset/css/login/join.css">
+<!-- css링크걸기 -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/asset/css/main/header.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/asset/css/main/footer.css">
+<script defer
+	src="${pageContext.request.contextPath}/asset/js/login/join.js"></script>
 </head>
 
 <body>
 
-      <!-- 헤더 - 메뉴바 -->
-      <jsp:include page="/html/main/header.jsp" />
-   
-     <main>
-    <div class="join-div-section-up">
-      <div class="join-div-wrapper-h1-box">
-        <h1 class="join-h1-title">회원가입</h1>
-      </div>
-      <div class="join-div-wrapper-p-box">
-        <p class="join-p-required1">*  </p>
-        <p class="join-p-required2"> 필수 입력사항</p>
-      
-      </div>
-    </div>
-    <form action="${pageContext.request.contextPath}/login/joinOk.me"  method = "post">
-      <div class="join-div-section-middle">
-        <div class="join-div-inputlayer">
-          <div class="join-div-labelwrapper">
-            <p class="join-p-label">아이디
-            </p>
-          </div>
-          <input type="text" class="join-input" name="userId" id="JOIN-INPUT-ID">
-        
-        </div>
-         <span class="join-div-wrapper-text-alarm" id="JOIN-DIV-IDCHECK"></span>
-        
+	<!-- 헤더 - 메뉴바 -->
+	<%--   <jsp:include page="/html/main/header.jsp" /> --%>
 
-        <div class="join-div-inputlayer">
-          <div class="join-div-labelwrapper">
-            <p class="join-p-label" >닉네임
-            </p>
-          </div>
-          <input type="text" class="join-input" name="userNick" id="JOIN-INPUT-NICKNAME" > 
-          
-        </div>
-         <span class="join-div-wrapper-text-alarm" id="JOIN-DIV-NICKNAMECHECK"></span>
-         
-        <div class="join-div-inputlayer">
-          <div class="join-div-labelwrapper">
-            <p class="join-p-label" >비밀번호</p>
-          </div>
-          <input type="password" class="join-input" id="INPUT-PASSWORD" name="userPw"  maxlength="15">      
-        </div>
-        <span class="join-div-wrapper-text-alarm" id="JOIN-DIV-PASSWORD"></span>
-        <div class="join-div-inputlayer">
-          <div class="join-div-labelwrapper">
-            <p class="join-p-label">비밀번호 재확인</p>
-          </div>
-          <input type="password" class="join-input" id="JOIN-REPASSWORD" name="userRepw" maxlength="15" >
-        </div>
-        <span class="join-div-wrapper-text-alarm" id="JOIN-DIV-REPASSWORD"></span>
-        
-        <div class="join-div-inputlayer">
-          <div class="join-div-labelwrapper">
-            <p class="join-p-label">이름</p>
-          </div>
-          <input type="text" class="join-input" id="JOIN-INPUT-NAME" name="userName"  maxlength="6">
-        </div>
-        <span class="join-div-wrapper-text-alarm" id="JOIN-DIV-NAME"></span>
-        
-        <div class="join-div-inputlayer">
-          <div class="join-div-labelwrapper">
-            <p class="join-p-label">생년월일</p>
-          </div>
-        <input type="text" class="join-input" name="userBirth" id="JOIN-INPUT-BIRTH">
-        </div>
-        <span class="join-div-wrapper-text-alarm" id="JOIN-DIV-BIRTH"></span>
-        
-        
-       <div class="join-div-inputlayer">
-        <div class="join-div-labelwrapper">
-          <p class="join-p-label">핸드폰번호</p>
-        </div>
-          <input type="text" class="join-input" name="userPH" id="JOIN-INPUT-PHONNUMBER">
-          
-          <button class="join-btn-checkid" type="button" id="JOIN-BTN-PHONNUMBER">인증번호 받기</button>
-        </div>
-        <span id="JOIN-DIV-VERIFICATION-STATUS"></span>
-        <div class="join-div-inputlayer">
-          <div class="join-div-labelwrapper">
-          </div>
-          <input type="number" class="join-input" name="authenticationNumber" id="JOIN-INPUT-AUTHENTICATIONNUMBER" >
-          <button class="join-btn-checkid" type="button" id="JOIN-BTN-AUTHENTICATIONNUMBER">인증번호 확인</button>
-  
-        </div>
-      </div>
-      </div>
-      </div>
-      </div>
-   
-  </main>
-  <hr>
+	<!-- 📌 메뉴바 & 로그인 모달 -->
+	<jsp:include page="/html/main/book.jsp" />
 
-  <main>
-    <div class="join-div-section-middle">
-      <p class="join-p-labeltitle">개인정보 수집 및 처리 방침에 관한 동의사항</p>
-      <div class="join-div-labelwrapper">
 
-        <input type="checkbox" class="join-input-checkbox-big" name="join-input-checkbox-big">
-        <label for="join-input-checkbox"></label>
-        <!-- <img src="./../../asset/img/login/checkboxOut.png" alt="이미지 깨짐" class="img-checkbox"> -->
-        <p class="join-p-labelall">전체동의</p>
-      </div>
-      <div class="join-div-labelwrapper">
+	<main>
+		<div class="join-div-section-up">
+			<div class="join-div-wrapper-h1-box">
+				<h1 class="join-h1-title">회원가입</h1>
+			</div>
+			<div class="join-div-wrapper-p-box">
+				<p class="join-p-required1">*</p>
+				<p class="join-p-required2">필수 입력사항</p>
 
-        <input type="checkbox" class="join-input-checkbox-small" name="join-input-checkbox-small">
-        <label for="join-input-checkbox-small"></label>
-        <!-- <img src="./../../asset/img/login/checkboxOut.png" alt="이미지 깨짐" class="img-checkboxsmall"> -->
-        <p class="join-p-labelagree">이용약관 동의</p>
-      </div>
-      <div class="join-div-wrapperprivacy">
-        <textarea rows="17" cols="109" class="join-p-wrapperprivacy">제 1 장 총칙
+			</div>
+		</div>
+		<form action="${pageContext.request.contextPath}/login/joinOk.me"
+			method="post">
+			<div class="join-div-section-middle">
+				<div class="join-div-inputlayer">
+					<div class="join-div-labelwrapper">
+						<p class="join-p-label">아이디</p>
+					</div>
+					<input type="text" class="join-input" name="userId"
+						id="JOIN-INPUT-ID">
+
+				</div>
+				<span class="join-div-wrapper-text-alarm" id="JOIN-DIV-IDCHECK"></span>
+
+
+				<div class="join-div-inputlayer">
+					<div class="join-div-labelwrapper">
+						<p class="join-p-label">닉네임</p>
+					</div>
+					<input type="text" class="join-input" name="userNick"
+						id="JOIN-INPUT-NICKNAME">
+
+				</div>
+				<span class="join-div-wrapper-text-alarm"
+					id="JOIN-DIV-NICKNAMECHECK"></span>
+
+				<div class="join-div-inputlayer">
+					<div class="join-div-labelwrapper">
+						<p class="join-p-label">비밀번호</p>
+					</div>
+					<input type="password" class="join-input" id="INPUT-PASSWORD"
+						name="userPw" maxlength="15">
+				</div>
+				<span class="join-div-wrapper-text-alarm" id="JOIN-DIV-PASSWORD"></span>
+				<div class="join-div-inputlayer">
+					<div class="join-div-labelwrapper">
+						<p class="join-p-label">비밀번호 재확인</p>
+					</div>
+					<input type="password" class="join-input" id="JOIN-REPASSWORD"
+						name="userRepw" maxlength="15">
+				</div>
+				<span class="join-div-wrapper-text-alarm" id="JOIN-DIV-REPASSWORD"></span>
+
+				<div class="join-div-inputlayer">
+					<div class="join-div-labelwrapper">
+						<p class="join-p-label">이름</p>
+					</div>
+					<input type="text" class="join-input" id="JOIN-INPUT-NAME"
+						name="userName" maxlength="6">
+				</div>
+				<span class="join-div-wrapper-text-alarm" id="JOIN-DIV-NAME"></span>
+
+				<div class="join-div-inputlayer">
+					<div class="join-div-labelwrapper">
+						<p class="join-p-label">생년월일</p>
+					</div>
+					<input type="text" class="join-input" name="userBirth"
+						id="JOIN-INPUT-BIRTH">
+				</div>
+				<span class="join-div-wrapper-text-alarm" id="JOIN-DIV-BIRTH"></span>
+
+
+				<div class="join-div-inputlayer">
+					<div class="join-div-labelwrapper">
+						<p class="join-p-label">핸드폰번호</p>
+					</div>
+					<input type="text" class="join-input" name="userPH"
+						id="JOIN-INPUT-PHONNUMBER">
+
+					<button class="join-btn-checkid" type="button"
+						id="JOIN-BTN-PHONNUMBER">인증번호 받기</button>
+				</div>
+				<span id="JOIN-DIV-VERIFICATION-STATUS"></span>
+				<div class="join-div-inputlayer">
+					<div class="join-div-labelwrapper"></div>
+					<input type="number" class="join-input" name="authenticationNumber"
+						id="JOIN-INPUT-AUTHENTICATIONNUMBER">
+					<button class="join-btn-checkid" type="button"
+						id="JOIN-BTN-AUTHENTICATIONNUMBER">인증번호 확인</button>
+
+				</div>
+			</div>
+			</div>
+			</div>
+			</div>
+	</main>
+	<hr>
+
+	<main>
+		<div class="join-div-section-middle">
+			<p class="join-p-labeltitle">개인정보 수집 및 처리 방침에 관한 동의사항</p>
+			<div class="join-div-labelwrapper">
+
+				<input type="checkbox" class="join-input-checkbox-big"
+					name="join-input-checkbox-big"> <label
+					for="join-input-checkbox"></label>
+				<!-- <img src="./../../asset/img/login/checkboxOut.png" alt="이미지 깨짐" class="img-checkbox"> -->
+				<p class="join-p-labelall">전체동의</p>
+			</div>
+			<div class="join-div-labelwrapper">
+
+				<input type="checkbox" class="join-input-checkbox-small"
+					name="join-input-checkbox-small"> <label
+					for="join-input-checkbox-small"></label>
+				<!-- <img src="./../../asset/img/login/checkboxOut.png" alt="이미지 깨짐" class="img-checkboxsmall"> -->
+				<p class="join-p-labelagree">이용약관 동의</p>
+			</div>
+			<div class="join-div-wrapperprivacy">
+				<textarea rows="17" cols="109" class="join-p-wrapperprivacy">제 1 장 총칙
 
           제 1 조 (목적)
           본 약관은 패치노트가 운영하는 지식의 숲홈페이지(이하 "당 사이트")에서 제공하는 모든 서비스(이하 "서비스")의 이용조건 및 절차, 이용자와 당 사이트의 권리, 의무, 책임사항과 기타 필요한 사항을 규정함을 목적으로 합니다.
@@ -271,17 +290,18 @@
           부 칙
           (시행일) 본 약관은 2018년 8월 1일부터 시행됩니다. 개정된 약관의 적용일자 이전 이용자 또는 회원은 개정된 이용약관의 적용을 받습니다.
         </textarea>
-      </div>
+			</div>
 
-      <div class="join-div-labelwrapper">
+			<div class="join-div-labelwrapper">
 
-        <input type="checkbox" class="join-input-checkbox-small" name="join-input-checkbox-small">
-        <label for="join-input-checkbox-small" ></label>
-        <!-- <img src="./../../asset/img/login/checkboxOut.png" alt="이미지 깨짐" class="img-checkboxsmall"> -->
-        <p class="join-p-labelagree">이용약관 동의</p>
-      </div>
-      <div class="join-div-wrapperprivacy">
-        <textarea rows="17" cols="109" class="join-p-wrapperprivacy">
+				<input type="checkbox" class="join-input-checkbox-small"
+					name="join-input-checkbox-small"> <label
+					for="join-input-checkbox-small"></label>
+				<!-- <img src="./../../asset/img/login/checkboxOut.png" alt="이미지 깨짐" class="img-checkboxsmall"> -->
+				<p class="join-p-labelagree">이용약관 동의</p>
+			</div>
+			<div class="join-div-wrapperprivacy">
+				<textarea rows="17" cols="109" class="join-p-wrapperprivacy">
           1. 개인정보의 수집항목 및 수집방법 
 패치노트 지식의 숲 사이트에서는 기본적인 회원 서비스 제공을 위한 필수정보로 실명인증정보와 가입정보로 구분하여 다음의 정보를 수집하고 있습니다. 필수정보를 입력해주셔야 회원 서비스 이용이 가능합니다.
 
@@ -326,16 +346,18 @@
       · 개인정보 보유 및 이용 기간 : 행정자치부에서는 이미 보유하고 있는 개인정보이기 때문에 별도로 저장하지 않음
                         
         </textarea>
-      </div>
+			</div>
 
-      <button type="submit"  class="join-btn-check" id="JOIN-BTN-INSITE" onclick="moveSite()">가입하기</button>
-   
-    </div>     <!-- section-middle /div -->
-  </form>
-  </main>
-   
-   
-   
-   <jsp:include page="/html/main/footer.jsp"/>
+			<button type="submit" class="join-btn-check" id="JOIN-BTN-INSITE"
+				onclick="moveSite()">가입하기</button>
+
+		</div>
+		<!-- section-middle /div -->
+		</form>
+	</main>
+
+
+
+	<jsp:include page="/html/main/footer.jsp" />
 </body>
 </html>

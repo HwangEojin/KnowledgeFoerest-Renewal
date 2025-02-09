@@ -1,0 +1,104 @@
+@charset "UTF-8";
+
+/* 📌 NEXT 버튼 (책 내부 오른쪽 하단 고정) */
+.next-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 90px;
+    height: 90px;
+    background: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    clip-path: polygon(100% 0, 100% 100%, 0% 100%); /* 삼각형 모양 */
+    cursor: pointer;
+    text-align: center;
+    overflow: visible; /* 📌 글씨가 잘리지 않도록 설정 */
+}
+
+/* 📌 NEXT 글씨 스타일 */
+.next-text {
+    position: absolute;
+    bottom: 25px; /* 📌 글씨가 보이도록 위로 이동 */
+    right: 10px;
+    transform: rotate(-45deg);
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+    white-space: nowrap; /* 📌 줄바꿈 방지 */
+    z-index: 10; /* 📌 글자가 위로 오도록 설정 */
+}
+
+/* 📌 화살표 컨테이너 */
+.next-arrow {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 5px;
+    right: 3px;
+}
+
+.next-arrow img {
+    width: 100%;
+    height: 100%;
+    transform: rotate(135deg);
+}
+
+/* 📌 PREV 버튼 */
+.prev-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 90px;
+    height: 90px;
+    background: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    clip-path: polygon(0 0, 100% 100%, 0% 100%); /* 📌 삼각형을 좌우 반전 */
+    cursor: pointer;
+    text-align: center;
+    overflow: visible; /* 📌 글씨가 잘리지 않도록 설정 */
+}
+
+.prev-text {
+    position: absolute;
+    bottom: 25px; /* 📌 글씨가 보이도록 위로 이동 */
+    left: 10px;
+    transform: rotate(45deg);
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+    white-space: nowrap; /* 📌 줄바꿈 방지 */
+    z-index: 10; /* 📌 글자가 위로 오도록 설정 */
+}
+
+.prev-arrow {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 5px;
+    left: 3px;
+}
+
+.prev-arrow img {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-135deg);
+}
+
+/* 📌 마우스 오버 효과 */
+.next-button:hover,
+.prev-button:hover {
+    background: #d4a373;
+    transform: scale(1.05);
+}

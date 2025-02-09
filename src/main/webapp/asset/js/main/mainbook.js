@@ -1,50 +1,3 @@
-// 배너
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   const slides = document.querySelectorAll(".main-div-banner img");
-//   let currentIndex = 0;
-
-//   function showSlide(index) {
-//     slides.forEach((slide, i) => {
-//       slide.classList.remove("main-div-banneractive");
-//       if (i === index) {
-//         slide.classList.add("main-div-banneractive");
-//       }
-//     });
-//   }
-
-//   showSlide(currentIndex);
-
-//   setInterval(() => {
-//     currentIndex = (currentIndex + 1) % slides.length;
-//     showSlide(currentIndex);
-//   }, 3500);
-// });
-
-
-/* 로그인 모달 */
-document.addEventListener("DOMContentLoaded", () => {
-     const loginModal = document.getElementById("loginModal");
-     const openLoginBtn = document.getElementById("openLoginModal");
-     const closeLoginBtn = document.getElementById("closeLoginModal");
-
-     openLoginBtn.addEventListener("click", (event) => {
-       event.preventDefault();
-       loginModal.style.display = "flex";
-     });
-
-     closeLoginBtn.addEventListener("click", () => {
-       loginModal.style.display = "none";
-     });
-
-     window.addEventListener("click", (event) => {
-       if (event.target === loginModal) {
-         loginModal.style.display = "none";
-       }
-     });
-   });
-
-/* 배너 모션 이벤트 */
 document.addEventListener("DOMContentLoaded", () => {
   const slides = document.querySelectorAll(".main-div-banner img");
   let currentIndex = 0;
@@ -56,14 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
         slide.classList.add("main-div-banneractive");
       }
     });
-    console.log("현재 배너 인덱스:", index); // 현재 보여지는 배너 인덱스 확인
   }
 
   showSlide(currentIndex);
 
   setInterval(() => {
     currentIndex = (currentIndex + 1) % slides.length;
-    console.log("변경된 배너 인덱스:", currentIndex); // 배너가 변경되는지 확인
     showSlide(currentIndex);
   }, 3500);
 });
@@ -94,8 +45,6 @@ function goPage(param) {
   location.href = "./../study/studylist-detail.html"; //<----이 링크는 추후 변경될 수 있습니다.
 }
 
-/* 책 모션 이벤트 */
-// 📌 jQuery 실행
 $(document).ready(function () {
   console.log("turn.js 실행됨!"); // 실행 확인용
 
@@ -107,47 +56,69 @@ $(document).ready(function () {
     pages: totalPages, // 정확한 페이지 수 설정
     when: {
       turning: function (event, page, view) {
-        console.log("책장이 넘어가는 중, 이동할 페이지:", page);
-
         if (page === 1 || page === totalPages) {
-
-          // 📌 책이 덮였을 때 -> 메뉴 이름 숨김 (포스트잇만 유지)
+          //책이 덮였을 때 -> 메뉴 이름 숨김 (포스트잇만 유지)
           $(".main-nav-menuwrap").removeClass("open");
-          $(".li-menu").css("transform",`translateX(-100px)`);
+          $(".li-menu").css("transform", `translateX(-100px)`);
         } else {
-          // 📌 책이 펼쳐졌을 때 -> 메뉴 이름 표시
+          // 책이 펼쳐졌을 때 -> 메뉴 이름 표시
           $(".main-nav-menuwrap").addClass("open");
-          $(".li-menu").css("transform",`translateX(0px)`);
+          $(".li-menu").css("transform", `translateX(0px)`);
         }
-
-        // 📌 책장을 넘길 때 회원 가입 페이지로 이동 (디자인 변경 없이 유지)
-        if (page === 3 || page === 4) {
-          console.log("회원 가입 페이지로 이동합니다.");
-          setTimeout(() => {
-            // window.open("./../login/join.html", "_self"); // 새 창이 아닌 현재 창에서 이동
-          }, 500); // 0.5초 딜레이 추가 (충돌 방지)
-        }
+       
       },
     },
+
   });
 
-  // 📌 클릭한 위치에 따라 페이지 이동 (왼쪽=이전, 오른쪽=다음)
-  $("#DIV-FLIPBOOK").on("click", function (event) {
-    let bookWidth = $(this).width(); // 책의 너비 가져오기
-    let clickX = event.pageX - $(this).offset().left; // 클릭한 X 좌표
-    let currentPage = $(this).turn("page"); // 현재 페이지
-
-    if (clickX < bookWidth / 2) {
-      // 📌 왼쪽 클릭 → 이전 페이지
-      $(this).turn("previous");
-    } else {
-      // 📌 오른쪽 클릭 → 다음 페이지 (마지막 페이지에서는 막기)
-      if (currentPage < totalPages) {
-        $(this).turn("next");
-      } else {
-        console.log("마지막 페이지는 넘어가지 않음.");
-        return false;
-      }
+  $(".page1").on("click", function () {
+    const currentPage = $("#DIV-FLIPBOOK").turn("page");
+    const totalPages = $("#DIV-FLIPBOOK").turn("pages");
+    if (currentPage < totalPages) {
+      console.log("표지 클릭됨!");
+      $("#DIV-FLIPBOOK").turn("next");
     }
   });
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const loginModal = document.getElementById("loginModal"); // 로그인 모달
+    const joinModal = document.getElementById("joinModal"); // 회원가입 모달
+    const openLoginBtn = document.getElementById("openLoginModal"); // 로그인 버튼
+    const openJoinFromLogin = document.getElementById("openJoinFromLogin"); // 로그인 모달 내부의 "회원가입" 버튼
+    const closeLoginBtn = document.getElementById("closeLoginModal"); // 로그인 닫기 버튼
+    const closeJoinBtn = document.getElementById("closeJoinModal"); // 회원가입 닫기 버튼
+
+    // ✅ 로그인 버튼 클릭 시 로그인 모달 열기
+    openLoginBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        loginModal.style.display = "flex";
+    });
+
+    // ✅ 로그인 모달 내부의 "회원가입" 버튼 클릭 시 회원가입 모달 열기
+    openJoinFromLogin.addEventListener("click", (event) => {
+        event.preventDefault();
+        loginModal.style.display = "none"; // 로그인 모달 닫기
+        joinModal.style.display = "flex"; // 회원가입 모달 열기
+    });
+
+    // ✅ 로그인 모달 닫기 버튼 클릭 시 닫기
+    closeLoginBtn.addEventListener("click", () => {
+        loginModal.style.display = "none";
+    });
+
+    // ✅ 회원가입 모달 닫기 버튼 클릭 시 닫기
+    closeJoinBtn.addEventListener("click", () => {
+        joinModal.style.display = "none";
+    });
+
+    // ✅ 모달 바깥을 클릭하면 닫기
+    window.addEventListener("click", (event) => {
+        if (event.target === loginModal) {
+            loginModal.style.display = "none";
+        } else if (event.target === joinModal) {
+            joinModal.style.display = "none";
+        }
+    });
 });
