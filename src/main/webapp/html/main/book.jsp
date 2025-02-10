@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!-- jQuery 로드 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- turn.js 로드 -->
-<script src="${pageContext.request.contextPath}/asset/js/main/turn.js"></script>
-<script
-	src="${pageContext.request.contextPath}/asset/js/main/mainbook.js"></script>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/asset/css/main/mainbook.css" />
 
 <!-- 📌 메뉴바 -->
 <div class="menu-wrapper">

@@ -1,15 +1,31 @@
+
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <%@ page import="java.io.*, java.util.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>지식의 숲</title>
+
+<!-- jQuery 로드 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- turn.js 로드 -->
+<script src="${pageContext.request.contextPath}/asset/js/main/turn.js"></script>
+<script
+	src="${pageContext.request.contextPath}/asset/js/main/mainbook.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/asset/css/main/mainbook.css" />
+
 </head>
 
 <body>
+
 	<main>
 		<div class="div-contents-wrapper">
 			<!-- 📌 turn.js 책 추가 -->
@@ -39,11 +55,12 @@
 							<h4>신규 등록 스터디</h4>
 						</div>
 						<ul>
-							<li>신규 등록 스터디 목록 1</li>
-							<li>신규 등록 스터디 목록 2</li>
-							<li>신규 등록 스터디 목록 3</li>
+							<c:forEach var="study" items="${newStudyList}">
+								<li>${study.studyTitle}</li>
+							</c:forEach>
 						</ul>
 					</div>
+
 				</div>
 
 				<div class="div-page page3">
@@ -64,11 +81,12 @@
 						<div class="div-divider"></div>
 						<h4>마감 임박 스터디</h4>
 						<ul class="ul-studylist">
-							<li>마감 임박 스터디 목록 1</li>
-							<li>마감 임박 스터디 목록 2</li>
-							<li>마감 임박 스터디 목록 3</li>
+							<c:forEach var="study" items="${deadlineStudyList}">
+								<li>${study.studyTitle}</li>
+							</c:forEach>
 						</ul>
 					</div>
+
 					<jsp:include page="/html/main/next-button.jsp" />
 
 				</div>
