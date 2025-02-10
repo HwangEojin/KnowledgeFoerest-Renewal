@@ -356,8 +356,6 @@
 		</form>
 	</main>
 
-
-
-	<jsp:include page="/html/main/footer.jsp" />
+	<%-- <jsp:include page="/html/main/footer.jsp" /> --%>
 </body>
 </html>
