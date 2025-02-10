@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/asset/css/buttons.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/asset/css/main/buttons.css">
 
 <!-- 다음 페이지 버튼 -->
 <div class="next-button">
